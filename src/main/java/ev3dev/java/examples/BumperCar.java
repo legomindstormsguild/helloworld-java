@@ -1,70 +1,35 @@
 package ev3dev.java.examples;
 
-import ev3dev.hardware.Battery;
-import ev3dev.hardware.port.MotorPort;
-import ev3dev.hardware.port.SensorPort;
 import ev3dev.hardware.motor.EV3LargeRegulatedMotor;
-import ev3dev.hardware.sensor.ev3.EV3IRSensor;
-import lejos.robotics.SampleProvider;
-import lejos.utility.Delay;
+import ev3dev.hardware.port.MotorPort;
 
 public class BumperCar {
     
     //Robot Definition
-    private final static EV3LargeRegulatedMotor mA = new EV3LargeRegulatedMotor(MotorPort.A);
-    private final static EV3LargeRegulatedMotor mB = new EV3LargeRegulatedMotor(MotorPort.B);
-    private final static EV3IRSensor ir1 = new EV3IRSensor(SensorPort.S2);
+    private static EV3LargeRegulatedMotor mA = null;
+    private static EV3LargeRegulatedMotor mB = null;
 
-    //Configuration
-    private final static int motorSpeed = 500;
-    
     public static void main(String[] args) {
-        
-        final SampleProvider sp = ir1.getDistanceMode();
-        int distance = 255;
 
-        final int distance_threshold = 35;
-        
-        //Robot control loop
-        final int iteration_threshold = 100;
-        for(int i = 0; i <= iteration_threshold; i++) {
-            forward();
-
-            float [] sample = new float[sp.sampleSize()];
-            sp.fetchSample(sample, 0);
-            distance = (int)sample[0];
-            if(distance <= distance_threshold){
-                backwardWithTurn();
-            }
-
-            System.out.println("Iteration: " + i);
-            System.out.println("Battery: " + Battery.getInstance().getVoltage());
-            System.out.println("Distance: " + distance);
-            System.out.println();
+        System.out.println("ELO SPORTOWY SWIRZE!");
+        try {
+            System.out.println("SPRAWDZAM MOTUR A!");
+            mA = new EV3LargeRegulatedMotor(MotorPort.A);
+            System.out.println("MAMY TO!");
+        } catch (Exception e) {
+            System.out.println("SMUTNA ZABA!!");
+            e.printStackTrace();
+        }
+        try {
+            System.out.println("SPRAWDZAM MOTUR B!");
+            mB = new EV3LargeRegulatedMotor(MotorPort.B);
+            System.out.println("MAMY TO!");
+        } catch (Exception e) {
+            System.out.println("SMUTNA ZABA!!");
+            e.printStackTrace();
         }
 
-        mA.stop();
-        mB.stop();
+        System.out.println("NARA!!");
         System.exit(0);
-    }
-    
-    private static void forward(){
-        mA.setSpeed(motorSpeed);
-        mB.setSpeed(motorSpeed);
-        mA.forward();
-        mB.forward();
-    }
-    
-    private static void backwardWithTurn(){
-        mA.backward();
-        mB.backward();
-        Delay.msDelay(1000);
-        mA.stop();
-        mB.stop();
-        mA.backward();
-        mB.forward();
-        Delay.msDelay(1000);
-        mA.stop();
-        mB.stop();
     }
 }
