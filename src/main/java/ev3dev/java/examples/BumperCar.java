@@ -19,11 +19,13 @@ public class BumperCar {
             System.out.println("MAMY TO!");
             System.out.println("OBRACAM!");
             mA.setSpeed(10);
-            mA.rotate(90);
+            mA.forward();
             Delay.msDelay(1000);
-            mA.setSpeed(-10);
-            mA.rotate(90);
+            mA.stop();
+            mA.setSpeed(10);
+            mA.backward();
             Delay.msDelay(1000);
+            mA.stop();
             System.out.println("JESZCZE JAK!");
         } catch (Exception e) {
             System.out.println("SMUTNA ZABA!!");
@@ -35,11 +37,13 @@ public class BumperCar {
             System.out.println("MAMY TO!");
             System.out.println("OBRACAM!");
             mB.setSpeed(10);
-            mB.rotate(90);
+            mB.forward();
             Delay.msDelay(1000);
-            mB.setSpeed(-10);
-            mB.rotate(90);
+            mB.stop();
+            mB.setSpeed(10);
+            mB.backward();
             Delay.msDelay(1000);
+            mB.stop();
             System.out.println("JESZCZE JAK!");
         } catch (Exception e) {
             System.out.println("SMUTNA ZABA!!");
